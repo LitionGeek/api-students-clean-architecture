@@ -1,12 +1,15 @@
 import { mysqlDB } from "../adapters";
 import { StudentEntity } from "../entities";
+import { IStudentRepository } from "./IStudentRepository";
 
-export class StudentRepository {
+export class StudentRepository implements IStudentRepository {
+  private readonly table_name = `tbl_students`;
+
   create = async (student: StudentEntity): Promise<StudentEntity | null> => {
     return new Promise<StudentEntity | null>((resolve, reject) => {
-      mysqlDB.query("INSERT INTO tbl_students SET ?", student, (err, res) => {
+      mysqlDB.query(`INSERT INTO ${this.table_name} SET ?`, student, (err, res) => {
         if (err) {
-          console.error("Error on query." + err);
+          console.error(`Error on query.` + err);
           reject(err);
           return;
         }
@@ -20,9 +23,9 @@ export class StudentRepository {
 
   getAll = async (): Promise<StudentEntity[]> => {
     return new Promise((resolve, reject) => {
-      mysqlDB.query("SELECT * FROM tbl_students ORDER BY name ASC", (err, res) => {
+      mysqlDB.query(`SELECT * FROM ${this.table_name} ORDER BY name ASC`, (err, res) => {
         if (err) {
-          console.error("Error on query." + err);
+          console.error(`Error on query.` + err);
           reject(err);
           return;
         }
@@ -31,11 +34,11 @@ export class StudentRepository {
     });
   };
 
-  getAllById = async (studentId: number): Promise<StudentEntity | null> => {
+  getById = async (studentId: number): Promise<StudentEntity | null> => {
     return new Promise((resolve, reject) => {
-      mysqlDB.query("SELECT * FROM tbl_students WHERE id =?", [studentId], (err, res) => {
+      mysqlDB.query(`SELECT * FROM ${this.table_name} WHERE id =?`, [studentId], (err, res) => {
         if (err) {
-          console.error("Error on query." + err);
+          console.error(`Error on query.` + err);
           reject(err);
           return;
         }
@@ -50,9 +53,9 @@ export class StudentRepository {
 
   update = async (studentId: number, updateStudent: StudentEntity): Promise<StudentEntity | null> => {
     return new Promise((resolve, reject) => {
-      mysqlDB.query("UPDATE tbl_students SET ? WHERE id =?", [updateStudent, studentId], (err, res) => {
+      mysqlDB.query(`UPDATE ${this.table_name} SET ? WHERE id =?`, [updateStudent, studentId], (err, res) => {
         if (err) {
-          console.error("Error on query." + err);
+          console.error(`Error on query.` + err);
           reject(err);
           return;
         }
@@ -67,9 +70,9 @@ export class StudentRepository {
 
   delete = async (studentId: number): Promise<boolean> => {
     return new Promise((resolve, reject) => {
-      mysqlDB.query("DELETE FROM tbl_students WHERE id =?", [studentId], (err, res) => {
+      mysqlDB.query(`DELETE FROM ${this.table_name} WHERE id =?`, [studentId], (err, res) => {
         if (err) {
-          console.error("Error on query." + err);
+          console.error(`Error on query.` + err);
           reject(err);
           return;
         }

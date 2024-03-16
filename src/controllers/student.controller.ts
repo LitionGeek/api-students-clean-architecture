@@ -1,9 +1,13 @@
 import { Request, Response } from "express";
 import { StudentRepository } from "../repositories/student.repository";
 import { StudentEntity } from "../entities";
+import { StudentUseCases } from "../userCases";
 
 export class StudentController {
-  constructor(private readonly studentRepository: StudentRepository) {}
+  constructor(
+    private readonly studentRepository: StudentRepository,
+    private readonly createStudentUseCase: StudentUseCases
+  ) {}
 
   create = (req: Request, res: Response) => {
     const student = new StudentEntity(
@@ -16,15 +20,15 @@ export class StudentController {
       req.body.age
     );
 
-    this.studentRepository
-      .create(student)
+    this.createStudentUseCase
+      .createStudentUseCase(student)
       .then((student) => res.json(student))
       .catch((err) => res.status(400).json(err));
   };
 
   getStudentList = (req: Request, res: Response) => {
-    this.studentRepository
-      .getAll()
+    this.createStudentUseCase
+      .listStudentUseCase()
       .then((students) => res.json(students))
       .catch((err) => res.status(400).json(err));
   };
@@ -32,8 +36,8 @@ export class StudentController {
   getStudent = (req: Request, res: Response) => {
     const { id } = req.params;
     const studentId = parseInt(id);
-    this.studentRepository
-      .getAllById(studentId)
+    this.createStudentUseCase
+      .getStudentUseCase(studentId)
       .then((student) => res.json(student))
       .catch((err) => res.status(400).json(err));
   };
@@ -51,8 +55,8 @@ export class StudentController {
       req.body.age
     );
 
-    this.studentRepository
-      .update(studentId, student)
+    this.createStudentUseCase
+      .updateStudentUseCase(studentId, student)
       .then((student) => res.json(student))
       .catch((err) => res.status(400).json(err));
   };
