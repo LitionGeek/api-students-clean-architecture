@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { StudentRepository } from "../repositories/student.repository";
 import { StudentEntity } from "../../domain/entities";
 import { StudentUseCases } from "../../application/use_Cases";
+import { IStudentRepository } from "../../domain/interfaces/IStudentRepository";
 
 export class StudentController {
   constructor(
-    private readonly studentRepository: StudentRepository,
+    private readonly studentRepository: IStudentRepository,
     private readonly createStudentUseCase: StudentUseCases
   ) {}
 
