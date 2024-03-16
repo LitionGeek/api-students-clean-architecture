@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { StudentController } from "../controllers";
 import { StudentRepository } from "../repositories/student.repository";
-import { StudentUseCases } from "../userCases";
+import { StudentUseCases } from "../../application/use_Cases";
 
 export class StudentRoutes {
   static get routes(): Router {

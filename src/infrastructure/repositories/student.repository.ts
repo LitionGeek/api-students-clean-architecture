@@ -1,6 +1,6 @@
 import { mysqlDB } from "../adapters";
-import { StudentEntity } from "../entities";
-import { IStudentRepository } from "./IStudentRepository";
+import { StudentEntity } from "../../domain/entities";
+import { IStudentRepository } from "../../domain/interfaces/IStudentRepository";
 
 export class StudentRepository implements IStudentRepository {
   private readonly table_name = `tbl_students`;

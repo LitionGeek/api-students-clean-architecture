@@ -1,6 +1,6 @@
-import { envs } from "./config";
-import { Server } from "./presentation";
-import { AppRoutes } from "./presentation/routes";
+import { envs } from "./infrastructure/config";
+import { Server } from "./infrastructure/presentation";
+import { AppRoutes } from "./infrastructure/presentation/routes";
 
 (() => {
   new Server({

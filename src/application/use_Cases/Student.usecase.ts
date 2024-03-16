@@ -1,5 +1,5 @@
-import { StudentEntity } from "../entities";
-import { StudentRepository } from "../repositories/student.repository";
+import { StudentEntity } from "../../domain/entities";
+import { StudentRepository } from "../../infrastructure/repositories/student.repository";
 
 export class StudentUseCases {
   constructor(private readonly studentRepository: StudentRepository) {}

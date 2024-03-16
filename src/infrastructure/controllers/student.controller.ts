@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { StudentRepository } from "../repositories/student.repository";
-import { StudentEntity } from "../entities";
-import { StudentUseCases } from "../userCases";
+import { StudentEntity } from "../../domain/entities";
+import { StudentUseCases } from "../../application/use_Cases";
 
 export class StudentController {
   constructor(
